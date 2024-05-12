@@ -1,8 +1,8 @@
 # learning-react-flow
 
-- Learning How to use React Flow
+- Learning How to use [React Flow](https://reactflow.dev/) library.
 
-## instruction
+## Set up
 
 ```sh
 cd learning-react-flow;

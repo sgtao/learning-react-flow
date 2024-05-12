@@ -10,6 +10,7 @@ import ReactFlow, {
   Position,
   Panel,
 } from 'reactflow';
+import { nanoid } from 'nanoid/non-secure';
 
 import 'reactflow/dist/style.css';
 import TextUpdaterNode from '../components/TextUpdaterNode';
@@ -75,13 +76,25 @@ const EditFlow = () => {
   );
 
   // ノードを追加する関数
+  const getMaxPosition = (currentNodes) => {
+    const maxPosition = { x: 0, y: 0 };
+    if (currentNodes.length == 0) return maxPosition;
+    currentNodes.map((curNode) => {
+      if (curNode.position.x > maxPosition.x)
+        maxPosition.x = curNode.position.x;
+      if (curNode.position.y > maxPosition.y)
+        maxPosition.y = curNode.position.y;
+    });
+    return maxPosition;
+  };
   const addNode = () => {
+    const maxPosition = getMaxPosition(nodes);
     const newNode = {
-      id: (nodes.length + 1).toString(),
+      id: `${(nodes.length + 1).toString()}-${nanoid()}`,
       data: { label: `Node ${nodes.length + 1}` },
       position: {
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
+        x: maxPosition.x + 50,
+        y: maxPosition.y + 150,
       },
       type: 'textUpdater',
       ...nodeDefaults,
