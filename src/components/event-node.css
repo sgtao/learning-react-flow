@@ -1,0 +1,40 @@
+/* event-node.css */
+.event-paragraph {
+  margin-left: 0.25rem; /* ml-1 */
+  font-size: 6px; /* text-[6px] */
+  font-weight: 700;
+  color: #4B5563; /* text-gray-400 */
+  background-color: inherit;
+}
+
+.event-container {
+  border-width: 2px; /* border-2 */
+  padding: 0.25rem; /* p-1 */
+  position: relative; /* relative */
+  display: flex; /* justify-center items-center */
+  justify-content: center;
+  align-items: center;
+}
+
+.event-container-selected {
+  border-color: #60A5FA; /* border-blue-400 */
+}
+
+.event-container-unselected {
+  border-color: transparent; /* border-transparent */
+}
+
+.event-content {
+  border-width: 2px; /* border-2 */
+  padding: 0.5rem 0.5rem; /* px-2 py-1 */
+  display: flex; /* justify-center items-center */
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px; /* rounded-full */
+  background-color: white; /* bg-white */
+}
+
+.event-name {
+  font-weight: 600; /* font-semibold */
+  text-align: center; /* text-center */
+}

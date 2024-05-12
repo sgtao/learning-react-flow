@@ -14,6 +14,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import TextUpdaterNode from '../components/TextUpdaterNode';
 import CounterNode from '../components/CounterNode';
+import EventNode from '../components/EventNode';
 
 const nodeDefaults = {
   sourcePosition: Position.Right,
@@ -44,7 +45,12 @@ const initialNodes = [
   {
     id: '4',
     position: { x: 250, y: 300 },
-    data: { label: 'default style 4' },
+    data: {
+      label: 'Node 1',
+      name: 'Sample Event Node 1',
+      color: '#38B5AD',
+    },
+    type: 'eventNode',
     ...nodeDefaults,
   },
 ];
@@ -53,6 +59,7 @@ const initialNodes = [
 const nodeTypes = {
   textUpdater: TextUpdaterNode,
   countUpdater: CounterNode,
+  eventNode: EventNode,
 };
 
 const initialEdges = [
