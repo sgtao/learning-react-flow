@@ -3,7 +3,7 @@
   margin-left: 0.25rem; /* ml-1 */
   font-size: 6px; /* text-[6px] */
   font-weight: 700;
-  color: #4B5563; /* text-gray-400 */
+  color: #4b5563; /* text-gray-400 */
   background-color: inherit;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .event-container-selected {
-  border-color: #60A5FA; /* border-blue-400 */
+  border-color: #60a5fa; /* border-blue-400 */
 }
 
 .event-container-unselected {

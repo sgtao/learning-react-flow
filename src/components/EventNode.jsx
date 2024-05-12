@@ -53,7 +53,7 @@ function EventNode({ data, selected, isConnectable }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default EventNode;

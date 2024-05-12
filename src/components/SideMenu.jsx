@@ -25,6 +25,9 @@ const SideMenu = () => {
         <li>
           <Link to="/StyledFlow">Theming & Styling</Link>
         </li>
+        <li>
+          <Link to="/EditFlow">Edit Flow</Link>
+        </li>
         {/* Add more titles */}
       </ul>
     </nav>

@@ -14,6 +14,12 @@ function TextUpdaterNode({ data, isConnectable }) {
 
   return (
     <div className="updater-node">
+      <p className="updater-paragraph">
+        {
+          // eslint-disable-next-line react/prop-types
+          data.label
+        }
+      </p>
       <Handle
         type="target"
         position={Position.Left}

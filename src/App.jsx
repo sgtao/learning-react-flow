@@ -9,6 +9,7 @@ import {
   FigmalikeControl,
   PluginComponents,
   StyledFlow,
+  EditFlow,
 } from './pages/index';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                 element={<PluginComponents />}
               />
               <Route path={`/StyledFlow`} element={<StyledFlow />} />
+              <Route path={`/EditFlow`} element={<EditFlow />} />
             </Routes>
           </main>
         </div>
