@@ -1,6 +1,7 @@
 /* event-node.css */
 .event-paragraph {
   margin-left: 0.25rem; /* ml-1 */
+  margin-bottom: 0;
   font-size: 6px; /* text-[6px] */
   font-weight: 700;
   color: #4b5563; /* text-gray-400 */
@@ -25,7 +26,7 @@
 }
 
 .event-content {
-  border-width: 2px; /* border-2 */
+  border: 2px solid #38b5ad; /* border-2 */
   padding: 0.5rem 0.5rem; /* px-2 py-1 */
   display: flex; /* justify-center items-center */
   justify-content: center;

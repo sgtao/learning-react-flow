@@ -13,7 +13,7 @@ function EventNode({ data, selected, isConnectable }) {
       <p className="event-paragraph">
         {
           // eslint-disable-next-line react/prop-types
-          data.name
+          data.label
         }
       </p>
       <div

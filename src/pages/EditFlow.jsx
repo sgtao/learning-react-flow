@@ -1,5 +1,5 @@
 // EditFlow.jsx
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -7,6 +7,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  updateEdge,
   Position,
   Panel,
 } from 'reactflow';
@@ -26,9 +27,8 @@ const initialNodes = [
     id: 's1',
     position: { x: 50, y: 50 },
     data: {
-      label: 'Node 1',
-      name: 'Event -Start-',
-      color: '#38B5AD',
+      label: 'Start Node',
+      name: 'Start Event',
     },
     type: 'eventNode',
     ...nodeDefaults,
@@ -37,9 +37,8 @@ const initialNodes = [
     id: 'e1',
     position: { x: 250, y: 150 },
     data: {
-      label: 'Node 1',
-      name: 'Event -End-',
-      color: '#38B5AD',
+      label: 'End Node',
+      name: 'End Event',
     },
     type: 'eventNode',
     ...nodeDefaults,
@@ -48,8 +47,8 @@ const initialNodes = [
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = {
-  textUpdater: TextUpdaterNode,
   eventNode: EventNode,
+  textUpdater: TextUpdaterNode,
 };
 
 const initialEdges = [
@@ -65,6 +64,7 @@ const rfStyle = {
 };
 
 const EditFlow = () => {
+  const edgeUpdateSuccessful = useRef(true);
   // eslint-disable-next-line no-unused-vars
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -74,6 +74,27 @@ const EditFlow = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+  // Delete Edge on Drop
+  // reference of https://reactflow.dev/examples/edges/delete-edge-on-drop
+  const onEdgeUpdateStart = useCallback(() => {
+    edgeUpdateSuccessful.current = false;
+  }, []);
+  const onEdgeUpdate = useCallback((oldEdge, newConnection) => {
+    edgeUpdateSuccessful.current = true;
+    setEdges((els) => updateEdge(oldEdge, newConnection, els));
+  }, []);
+
+  const onEdgeUpdateEnd = useCallback((_, edge) => {
+    if (!edgeUpdateSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+    }
+    edgeUpdateSuccessful.current = true;
+  }, []);
+
+  // 追加：エッジをダブルクリックで削除する処理
+  const onEdgeDoubleClick = useCallback((event, edge) => {
+    setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+  }, []);
 
   // ノードを追加する関数
   const getMaxPosition = (currentNodes) => {
@@ -89,9 +110,10 @@ const EditFlow = () => {
   };
   const addNode = () => {
     const maxPosition = getMaxPosition(nodes);
+    const idPrefix = (nodes.length + 1).toString();
     const newNode = {
-      id: `${(nodes.length + 1).toString()}-${nanoid()}`,
-      data: { label: `Node ${nodes.length + 1}` },
+      id: `${idPrefix}-${nanoid()}`,
+      data: { label: `Node ${idPrefix}` },
       position: {
         x: maxPosition.x + 50,
         y: maxPosition.y + 150,
@@ -108,6 +130,11 @@ const EditFlow = () => {
       edges={edges}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
+      snapToGrid
+      onEdgeUpdate={onEdgeUpdate}
+      onEdgeUpdateStart={onEdgeUpdateStart}
+      onEdgeUpdateEnd={onEdgeUpdateEnd}
+      onEdgeDoubleClick={onEdgeDoubleClick}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
       fitView
@@ -118,7 +145,10 @@ const EditFlow = () => {
       <MiniMap />
       <Panel position="top-left">
         <b>Edit Flow:</b>
-        <pre>Trial Edit Flow by Add and Delete Node.</pre>
+        <ul>
+          <li>Trial Edit Flow with Node Add and Edge Delete.</li>
+          <li>to delete Edge, double click Edge.</li>
+        </ul>
       </Panel>
       <Panel position="top-right">
         <button onClick={addNode}>+ Add Node</button>
